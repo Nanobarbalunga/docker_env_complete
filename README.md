@@ -2,7 +2,7 @@
 
 Questo progetto fornisce un ambiente di sviluppo completo basato su Docker, con supporto per:
 
-- Apache + PHP
+- Apache + PHP (versione configurabile)
 - Node.js
 - Python
 - MariaDB + phpMyAdmin
@@ -13,16 +13,19 @@ Questo progetto fornisce un ambiente di sviluppo completo basato su Docker, con 
 
 ```
 .
-├── app/         # Codice PHP
+├── app/             # Codice del progetto PHP (Laravel, WordPress, ecc.)
 ├── config/
-│   └── apache/  # Configurazioni personalizzate di Apache
-│   └── php/     # Configurazioni personalizzate di PHP
-│   └── docker-web/ # Dockerfile personalizzato
+│   └── apache/
+│       ├── base.conf        # Configurazione Apache sempre caricata
+│       ├── laravel.conf     # Configurazione per Laravel
+│       └── wordpress.conf   # (facoltativa) Altri preset
+│   └── php/         # File php.ini personalizzati
+│   └── docker-web/  # Dockerfile personalizzato
 ├── data/
-│   └── db/      # Dati persistenti del database
-├── .env         # Variabili d'ambiente (crealo da .env.example)
-├── .env.example # Esempio di file env
-├── .gitignore   # File di esclusione per Git
+│   └── db/          # Dati persistenti del database
+├── .env             # Variabili d'ambiente (copiato da .env.example)
+├── .env.example     # Esempio di file env
+├── .gitignore
 └── docker-compose.yml
 ```
 
@@ -40,9 +43,45 @@ docker-compose up --build -d
    - phpMyAdmin: http://localhost:8081
    - Mailhog: http://localhost:8025
 
-## Variabili configurabili
+## Configurazioni Apache
 
-Guarda il file `.env.example` per l’elenco completo delle variabili configurabili.
+Nel file `.env` puoi specificare quale preset Apache usare (oltre alla configurazione base sempre caricata):
+
+```env
+APACHE_PRESET=laravel
+```
+
+Il sistema caricherà `base.conf` + `laravel.conf` da `config/apache/`.
+
+### Esempi:
+
+- `APACHE_PRESET=none`: solo `base.conf` (default generico)
+- `APACHE_PRESET=laravel`: aggiunge configurazione per Laravel (DocumentRoot in `/public`)
+
+## Aggiungere un progetto
+
+### ✅ Progetto generico PHP
+
+Inserisci il codice PHP in `app/`, assicurati che il tuo file di ingresso sia visibile direttamente (es. `index.php`).
+
+### ✅ Progetto Laravel
+
+1. Installa Laravel nella cartella `app/`:
+
+```bash
+docker-compose exec web bash
+composer create-project laravel/laravel .
+```
+
+2. Imposta `APACHE_PRESET=laravel` nel `.env`.
+
+3. Riavvia il container:
+
+```bash
+docker-compose up -d --build
+```
+
+Visita [http://localhost:8080](http://localhost:8080)
 
 ## Licenza
 
