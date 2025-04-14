@@ -1,0 +1,15 @@
+# Dati persistenti da non pushare
+/data/db/
+
+# Configurazioni sensibili
+.env
+
+# Cache, logs, dipendenze (opzionale)
+**/node_modules/
+**/vendor/
+**/.DS_Store
+
+# Se vuoi escludere anche il codice del progetto, decommenta:
+# /app/
+# /config/apache/
+# /config/php/
