@@ -8,7 +8,7 @@ services:
     image: docker-web:1.1 
     container_name: web-${CONTAINER_NAMESPACE:-env}
     ports:
-      - "8080:80"
+       - "${WEB_PORT:-8080}:80"
     volumes:
       - ./app:/var/www/html
       - ./config/docker-web/apache:/etc/apache2/custom-conf
@@ -31,7 +31,7 @@ services:
     volumes:
       - ./data/db:/var/lib/mysql
     ports:
-      - "3306:3306"
+      - "${MYSQL_PORT:-3306}:3306"
     networks:
       - app-network
 
@@ -41,7 +41,7 @@ services:
     environment:
       PMA_HOST: db
     ports:
-      - "8081:80"
+      - "${PHPMYADMIN_PORT:-8081}:80"
     depends_on:
       - db
     networks:
@@ -53,7 +53,7 @@ services:
     volumes:
       - ./data/redis:/data
     ports:
-      - "6379:6379"
+      - "${REDIS_PORT:-6379}:6379"
     networks:
       - app-network
 
@@ -61,8 +61,8 @@ services:
     image: mailhog/mailhog
     container_name: mailhog-${CONTAINER_NAMESPACE:-env}
     ports:
-      - "8025:8025"
-      - "1025:1025"
+      - "${MAILHOG_UI_PORT:-8025}:8025"
+      - "${MAILHOG_SMTP_PORT:-1025}:1025"
     networks:
       - app-network
 
