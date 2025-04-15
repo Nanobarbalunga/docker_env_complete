@@ -2,7 +2,8 @@ version: '3.8'
 
 services:
   web:
-    build: ./config/docker-web
+    build: ./config/docker-web #dai un nome a questa build
+    image: docker-web:1.0 
     container_name: web-${CONTAINER_NAMESPACE:env}
     ports:
       - "8080:80"
