@@ -4,7 +4,7 @@ services:
   web:
     build: ./config/docker-web #dai un nome a questa build
     image: docker-web:1.0 
-    container_name: web-${CONTAINER_NAMESPACE:env}
+    container_name: web-${CONTAINER_NAMESPACE:'env'}
     ports:
       - "8080:80"
     volumes:
@@ -20,7 +20,7 @@ services:
 
   db:
     image: mariadb:10.11
-    container_name: db-${CONTAINER_NAMESPACE:env}
+    container_name: db-${CONTAINER_NAMESPACE:'env'}
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:root}
       MYSQL_DATABASE: ${MYSQL_DATABASE:app_db}
@@ -35,7 +35,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin
-    container_name: phpmyadmin-${CONTAINER_NAMESPACE:env}
+    container_name: phpmyadmin-${CONTAINER_NAMESPACE:'env'}
     environment:
       PMA_HOST: db
     ports:
@@ -47,7 +47,7 @@ services:
 
   redis:
     image: redis:7
-    container_name: redis-${CONTAINER_NAMESPACE:env}
+    container_name: redis-${CONTAINER_NAMESPACE:'env'}
     ports:
       - "6379:6379"
     networks:
@@ -55,7 +55,7 @@ services:
 
   mailhog:
     image: mailhog/mailhog
-    container_name: mailhog-${CONTAINER_NAMESPACE:env}
+    container_name: mailhog-${CONTAINER_NAMESPACE:'env'}
     ports:
       - "8025:8025"
       - "1025:1025"
