@@ -10,7 +10,11 @@ ARG PHP_MODULES="mysqli pdo pdo_mysql"
 ARG COMPOSER_INSTALL=true
 ARG APACHE_PRESET=none
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y software-properties-common && \
+    add-apt-repository ppa:ondrej/php -y && \
+    apt-get update
+
+RUN apt-get install -y \
     apache2 \
     php${PHP_VERSION} \
     php${PHP_VERSION}-cli \
@@ -22,7 +26,10 @@ RUN apt-get update && apt-get install -y \
     curl git unzip && \
     a2enmod rewrite
 
-COPY apache /etc/apache2/custom-conf
+# COPY apache /etc/apache2/custom-conf
+# COPY /apache-presets /etc/apache2/custom-conf
+COPY config/docker-web/apache /etc/apache2/custom-conf
+
 
 RUN cat /etc/apache2/custom-conf/base.conf > /etc/apache2/sites-available/000-default.conf && \
     if [ "$APACHE_PRESET" != "none" ] && [ -f "/etc/apache2/custom-conf/${APACHE_PRESET}.conf" ]; then \

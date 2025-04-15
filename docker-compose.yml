@@ -2,15 +2,19 @@ version: '3.8'
 
 services:
   web:
-    build: ./config/docker-web #dai un nome a questa build
-    image: docker-web:1.0 
+    # build: ./config/docker-web #dai un nome a questa build
+    build:
+      context: .
+      dockerfile: config/docker-web/Dockerfile
+    image: docker-web:1.1 
     container_name: web-${CONTAINER_NAMESPACE:-env}
     ports:
       - "8080:80"
     volumes:
       - ./app:/var/www/html
-      - ./config/apache:/etc/apache2
-      - ./config/php:/usr/local/etc/php
+      # - ./config/docker-web/apache:/etc/apache2
+      - ./config/docker-web/apache:/etc/apache2/custom-conf
+      - ./config/docker-web/php:/usr/local/etc/php
     depends_on:
       - db
       - redis

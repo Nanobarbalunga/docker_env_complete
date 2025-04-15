@@ -13,18 +13,18 @@ Questo progetto fornisce un ambiente di sviluppo completo basato su Docker, con 
 
 ```
 .
-├── app/             # Codice del progetto PHP (Laravel, WordPress, ecc.)
+├── app/                          # Codice del progetto PHP (Laravel, WordPress, ecc.)
 ├── config/
-│   └── apache/
-│       ├── base.conf        # Configurazione Apache sempre caricata
-│       ├── laravel.conf     # Configurazione per Laravel
-│       └── wordpress.conf   # (facoltativa) Altri preset
-│   └── php/         # File php.ini personalizzati
-│   └── docker-web/  # Dockerfile personalizzato
+│   └── docker-web/               # Dockerfile personalizzato
+│        └── apache/
+│            ├── base.conf        # Configurazione Apache sempre caricata
+│            ├── laravel.conf     # Configurazione per Laravel
+│            └── wordpress.conf   # (facoltativa) Altri preset
+│        └── php/                 # File php.ini personalizzati
 ├── data/
-│   └── db/          # Dati persistenti del database
-├── .env             # Variabili d'ambiente (copiato da .env.example)
-├── .env.example     # Esempio di file env
+│   └── db/                       # Dati persistenti del database
+├── .env                          # Variabili d'ambiente (copiato da .env.example)
+├── .env.example                  # Esempio di file env
 ├── .gitignore
 └── docker-compose.yml
 ```
@@ -51,7 +51,7 @@ Nel file `.env` puoi specificare quale preset Apache usare (oltre alla configura
 APACHE_PRESET=laravel
 ```
 
-Il sistema caricherà `base.conf` + `laravel.conf` da `config/apache/`.
+Il sistema caricherà `base.conf` + `laravel.conf` da `config/docker-web/apache/`.
 
 ### Esempi:
 
