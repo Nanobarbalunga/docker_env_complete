@@ -32,19 +32,13 @@ Questo progetto fornisce un ambiente di sviluppo completo basato su Docker, con 
 ## Come si usa
 
 1. Copia `.env.example` in `.env` e personalizza le variabili.
-2. Crea la build dell'immagine con: 
-
-```bash
-docker-compose build --no-cache
-``` 
-
-3. Avvia l’ambiente con:
+2. Avvia l’ambiente con:
 
 ```bash
 docker-compose up --build -d
 ```
 
-4. Accedi a:
+3. Accedi a:
    - App PHP: http://localhost:8080
    - phpMyAdmin: http://localhost:8081
    - Mailhog: http://localhost:8025
