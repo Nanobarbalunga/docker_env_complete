@@ -20,6 +20,7 @@ RUN apt-get install -y \
     php${PHP_VERSION}-cli \
     php${PHP_VERSION}-common \
     php${PHP_VERSION}-mysql \
+    php${PHP_VERSION}-zip \
     libapache2-mod-php${PHP_VERSION} \
     python${PYTHON_VERSION} python3-pip \
     nodejs npm \
